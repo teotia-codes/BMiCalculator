@@ -159,3 +159,20 @@ fun ColumnScope.SymbolButtonwithIcon(
      }
 }
 
+@Composable
+fun BMIResultCard() {
+    Column {
+        Row {
+            Text(text = "20.8", color = CustomOrange )
+            Column {
+                Text(text = "BMI", color = CustomGray , fontSize = 40.sp)
+                Text(text = "Normal", color = CustomGray , fontSize = 18.sp )
+
+
+
+            }
+
+        }
+    }
+}
+
