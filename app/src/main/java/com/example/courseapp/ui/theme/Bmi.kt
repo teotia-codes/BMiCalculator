@@ -28,7 +28,8 @@ fun BMIScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
-            .padding(15.dp)
+            .padding(15.dp),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -98,7 +99,19 @@ fun BMIScreen() {
             Divider()
             Spacer(modifier = Modifier.height(20.dp))
 
-        }
+            Row {
+                NumberKeyboard(
+                    onNumberClicked = {}, modifier = Modifier.weight(7f))
+                Column(
+                    modifier = Modifier.weight(3f)
+                ) {
+                    SymbolButton(symbol = "AC", onClick = {})
+                    SymbolButtonwithIcon(onClick = {})
+                    SymbolButton(symbol = "GO", onClick = {})
+                }
+            }
+
+                   }
 
     }
 
