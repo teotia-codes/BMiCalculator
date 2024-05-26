@@ -1,15 +1,22 @@
 package com.example.courseapp.ui.theme
 
+import android.widget.Space
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -165,11 +172,29 @@ fun ColumnScope.SymbolButtonwithIcon(
 
 @Composable
 fun BMIResultCard() {
-    Column {
-        Row {
+    Column(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Gray,
+                shape = RoundedCornerShape(15.dp)
+            )
+            .clip(RoundedCornerShape(15.dp))
+            .background(Color.DarkGray)
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(text = "20.8", color = CustomOrange ,
                 fontSize = 82.sp)
-            Column {
+            Spacer(modifier = Modifier.width(15.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(text = "BMI", color = CustomGray , fontSize = 40.sp)
                 Text(text = "Normal", color = CustomGray , fontSize = 18.sp )
 
@@ -178,6 +203,7 @@ fun BMIResultCard() {
             }
 
         }
+        Spacer(modifier = Modifier.height(20.dp))
         Divider(
             modifier = Modifier
                 .background(
@@ -187,10 +213,61 @@ fun BMIResultCard() {
             thickness = 5.dp
 
         )
+        Spacer(modifier = Modifier.height(20.dp))
+
         Text(text = "Information",
-            textAlign = TextAlign.Center,
             color = Color.White,
-            fontSize = 20.sp)
+            fontSize = 24.sp)
+        Spacer(modifier = Modifier.height(20.dp))
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Underweight", color = CustomBlue, fontSize = 20.sp)
+            Text(text = "Normal", color = CustomGreen,fontSize = 20.sp)
+            Text(text = "Overweight", color = CustomRed,fontSize = 20.sp)
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Divider(modifier = Modifier
+                .weight(
+                    1f
+                )
+                .background(CustomBlue),
+                thickness = 5.dp
+            )
+            Divider(
+                modifier = Modifier
+                    .weight(
+                        1f
+                    )
+                    .background(CustomGreen),
+                        thickness = 5.dp
+            )
+            Divider(
+                modifier = Modifier
+                    .weight(
+                        1f
+                    )
+                    .background(CustomRed),
+                thickness = 5.dp
+            )
+        }
+        Spacer(modifier = Modifier.height(15.dp))
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "16.0",fontSize = 18.sp, color = Color.White)
+            Text(text = "18.5",fontSize = 18.sp, color = Color.White)
+            Text(text = "25.0",fontSize = 18.sp, color = Color.White)
+            Text(text = "40.0", fontSize = 18.sp, color = Color.White)
+        }
+
+
 
     }
 }
