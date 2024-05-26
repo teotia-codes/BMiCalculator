@@ -293,11 +293,51 @@ fun ShareButton(
         )) {
         Text(text = "Share",
             fontSize = 20.sp,
-            modifier = Modifier.padding(10.dp)
-            .clip(RoundedCornerShape(15.dp)))
+            modifier = Modifier
+                .padding(10.dp)
+                .clip(RoundedCornerShape(15.dp)))
     }
 }
 
+@Composable
+fun BottomSheetContent(
+    sheetTitle: String,
+    sheetItemList: List<String>,
+    onItemCLick: (String) -> Unit,
+    onCancelClick: ()->Unit
+) {
+    Text(text = sheetTitle,
+        modifier =Modifier.fillMaxWidth().padding(10.dp) ,
+        color = Color.Black,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center)
+    sheetItemList.forEach{item ->
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onItemCLick(item)
+            }){
+            Text(text = item ,
+                color = Color.Black,
+                modifier = Modifier.padding(15.dp))
+        }
+
+    }
+    Button(onClick = { onCancelClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Gray,
+            contentColor = Color.White
+        )
+    ) {
+        Text(text = "Cancel", fontSize = 24.sp)
+
+    }
+
+    
+}
 @Preview
 @Composable
 fun Pre() {
