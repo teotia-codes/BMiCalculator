@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -171,7 +173,12 @@ fun ColumnScope.SymbolButtonwithIcon(
 }
 
 @Composable
-fun BMIResultCard() {
+fun BMIResultCard(
+    bmi : Double,
+    bmiStage: String = "Normal",
+    bmiStageColor: Color = CustomGreen
+
+) {
     Column(
         modifier = Modifier
             .border(
@@ -189,14 +196,14 @@ fun BMIResultCard() {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "20.8", color = CustomOrange ,
+            Text(text = "$bmi", color = CustomOrange ,
                 fontSize = 82.sp)
             Spacer(modifier = Modifier.width(15.dp))
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = "BMI", color = CustomGray , fontSize = 40.sp)
-                Text(text = "Normal", color = CustomGray , fontSize = 18.sp )
+                Text(text = bmiStage, color = bmiStageColor , fontSize = 18.sp )
 
 
 
@@ -272,8 +279,27 @@ fun BMIResultCard() {
     }
 }
 
+@Composable
+fun ShareButton(
+    modifier: Modifier,
+    onClick: () -> Unit
+) {
+    Button(
+        modifier = modifier ,
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = CustomOrange,
+            contentColor = Color.White
+        )) {
+        Text(text = "Share",
+            fontSize = 20.sp,
+            modifier = Modifier.padding(10.dp)
+            .clip(RoundedCornerShape(15.dp)))
+    }
+}
+
 @Preview
 @Composable
 fun Pre() {
-    BMIResultCard()
+
 }
