@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseapp.ui.theme.BMIScreen
 import com.example.courseapp.ui.theme.CourseAppTheme
 
@@ -23,9 +24,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val viewModal = viewModel<BmiViewModal>()
 
 
-                    BMIScreen()
+                    BMIScreen(viewModal)
 
 
                 }

@@ -27,11 +27,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import com.example.courseapp.BmiViewModal
+import com.example.courseapp.UserAction
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BMIScreen() {
+fun BMIScreen(
+    viewModel: BmiViewModal
+) {
+    val state = viewModel.state
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true)
@@ -41,12 +47,13 @@ fun BMIScreen() {
         sheetContent = {
                                           BottomSheetContent(
 
-                                              sheetTitle = "Weight",
-                                              sheetItemList = listOf("Kilogram", "Pounds") ,
+                                              sheetTitle = state.sheetTitle,
+                                              sheetItemList = state.sheetItemList,
                                               onItemCLick = {
                                                   coroutineScope.launch {
                                                       modalBottomSheetState.hide()
                                                   }
+                                                  viewModel.onAction(UserAction.OnSheetItemClicked(sheetItem = it))
                                               },
                                               onCancelClick = {
                                                   coroutineScope.launch {
@@ -101,10 +108,11 @@ fun BMIScreen() {
                                       coroutineScope.launch {
                                           modalBottomSheetState.show()
                                       }
+                                viewModel.onAction(UserAction.WeightValueClicked)
                             },
                             color = Color.White)
                         InputUnitValue(inputValue = "80",
-                            inputUnit = "Kilograms",
+                            inputUnit = state.weightUnit,
                             inputColor = Color.White) {
 
                         }
@@ -123,10 +131,12 @@ fun BMIScreen() {
                                 coroutineScope.launch {
                                     modalBottomSheetState.show()
                                 }
+                                viewModel.onAction(UserAction.HeighValueClicked)
+
                             },
                             color = Color.White)
                         InputUnitValue(inputValue = "170",
-                            inputUnit = "Centimetres",
+                            inputUnit = state.heightUnit,
                             inputColor = Color.White) {
 
                         }
@@ -165,5 +175,4 @@ fun BMIScreen() {
 @Preview
 @Composable
 fun BMIScreenPrev() {
-    BMIScreen()
 }
