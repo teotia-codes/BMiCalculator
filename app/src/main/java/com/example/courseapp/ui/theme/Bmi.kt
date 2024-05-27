@@ -111,7 +111,7 @@ fun BMIScreen(
                                 viewModel.onAction(UserAction.WeightValueClicked)
                             },
                             color = Color.White)
-                        InputUnitValue(inputValue = "80",
+                        InputUnitValue(inputValue = state.weightValue,
                             inputUnit = state.weightUnit,
                             inputColor = Color.White) {
 
@@ -135,7 +135,7 @@ fun BMIScreen(
 
                             },
                             color = Color.White)
-                        InputUnitValue(inputValue = "170",
+                        InputUnitValue(inputValue = state.heightValue,
                             inputUnit = state.heightUnit,
                             inputColor = Color.White) {
 
@@ -152,7 +152,9 @@ fun BMIScreen(
 
                     Row {
                         NumberKeyboard(
-                            onNumberClicked = {}, modifier = Modifier.weight(7f))
+                            onNumberClicked = {
+                                viewModel.onAction(UserAction.OnNumberClicked(it))
+                            }, modifier = Modifier.weight(7f))
                         Column(
                             modifier = Modifier.weight(3f)
                         ) {

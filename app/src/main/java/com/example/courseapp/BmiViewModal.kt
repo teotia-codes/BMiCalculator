@@ -24,7 +24,33 @@ class BmiViewModal: ViewModel(){
             is UserAction.OnSheetItemClicked -> {
                 changeWeightOrHeightUnit(userAction.sheetItem)
             }
+
+            is UserAction.OnNumberClicked -> {
+                enterNumber(userAction.number )
+
+            }
+            UserAction.HeightClicked ->{
+                state = state.copy(
+                    isHeightValueActive = true,
+                    isWeightValueActive = false
+                )
+            }
+            UserAction.WeightClicked ->{
+                state = state.copy(
+                    isWeightValueActive = false,
+                    isHeightValueActive = false
+                )
+            }
         }
+    }
+    private fun enterNumber(number: String){
+        if (state.isWeightValueActive){
+            state = state.copy(weightValue = number)
+        }
+        else if(state.isHeightValueActive){
+            state = state.copy(heightValue = number)
+        }
+
     }
     private fun changeWeightOrHeightUnit(sheetItem: String){
         if (state.sheetTitle == "Weight"){
@@ -39,5 +65,8 @@ class BmiViewModal: ViewModel(){
 sealed class UserAction {
     object WeightValueClicked: UserAction()
     object  HeighValueClicked: UserAction()
+    object HeightClicked: UserAction()
+    object WeightClicked: UserAction()
     data class OnSheetItemClicked(val sheetItem: String): UserAction()
+    data class OnNumberClicked(val number: String): UserAction()
 }
