@@ -113,9 +113,10 @@ fun BMIScreen(
                             color = Color.White)
                         InputUnitValue(inputValue = state.weightValue,
                             inputUnit = state.weightUnit,
-                            inputColor = Color.White) {
-
-                        }
+                            inputColor = Color.White,
+                            onUnitValueClicked = {
+                               viewModel.onAction(UserAction.WeightClicked)
+                            })
                     }
                     Spacer(modifier = Modifier.height(24.dp))
                     Row(
@@ -137,9 +138,10 @@ fun BMIScreen(
                             color = Color.White)
                         InputUnitValue(inputValue = state.heightValue,
                             inputUnit = state.heightUnit,
-                            inputColor = Color.White) {
-
-                        }
+                            inputColor = Color.White,
+                            onUnitValueClicked = {
+                                viewModel.onAction(UserAction.HeightClicked)
+                            })
                     }
                 }
                 Column(
@@ -151,7 +153,7 @@ fun BMIScreen(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     Row {
-                        NumberKeyboard(
+                         NumberKeyboard(
                             onNumberClicked = {
                                 viewModel.onAction(UserAction.OnNumberClicked(it))
                             }, modifier = Modifier.weight(7f))

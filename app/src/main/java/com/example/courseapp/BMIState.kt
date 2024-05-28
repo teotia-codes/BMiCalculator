@@ -7,6 +7,18 @@ data class BMIState(
     val heightUnit: String = "Centimeter",
     val weightValue: String = "60",
     val heightValue: String = "170",
-    val isHeightValueActive: Boolean = true,
-    val isWeightValueActive: Boolean = false,
+    val isHeightValueActive: HeightValueStage = true,
+    val isWeightValueActive: WeightValueStage = false,
+    val weightValueStage: WeightValueStage = WeightValueStage.ACTIVE,
+    val heightValueStage: HeightValueStage = HeightValueStage.INACTIVE
 )
+enum class WeightValueStage{
+    INACTIVE,
+    ACTIVE,
+    RUNNING
+}
+enum class HeightValueStage{
+    INACTIVE,
+    ACTIVE,
+    RUNNING
+}

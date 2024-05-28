@@ -3,6 +3,7 @@ package com.example.courseapp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 
 class BmiViewModal: ViewModel(){
@@ -31,26 +32,48 @@ class BmiViewModal: ViewModel(){
             }
             UserAction.HeightClicked ->{
                 state = state.copy(
-                    isHeightValueActive = true,
-                    isWeightValueActive = false
+                    isHeightValueActive = HeightValueStage.ACTIVE,
+                    isWeightValueActive = WeightValueStage.INACTIVE
                 )
             }
             UserAction.WeightClicked ->{
                 state = state.copy(
-                    isWeightValueActive = false,
-                    isHeightValueActive = false
+                    isWeightValueActive = WeightValueStage.INACTIVE,
+                    isHeightValueActive = HeightValueStage.ACTIVE
                 )
             }
         }
     }
     private fun enterNumber(number: String){
-        if (state.isWeightValueActive){
-            state = state.copy(weightValue = number)
-        }
-        else if(state.isHeightValueActive){
-            state = state.copy(heightValue = number)
-        }
+when {
+    state.weightValueStage == WeightValueStage.ACTIVE -> {
+        state = state.copy(
+            weightValue =  if (number == ".") "0." else number,
+            weightValueStage = WeightValueStage.RUNNING
+        )
 
+    }
+    state.weightValueStage == WeightValueStage.RUNNING -> {
+        state = state.copy(
+            weightValue = state.weightValue + number ,
+            weightValueStage =  WeightValueStage.RUNNING
+        )
+
+    }
+    state.heightValueStage == HeightValueStage.ACTIVE -> {
+        state = state.copy(
+            heightValue =  if (number == ".") "0." else number,
+            heightValueStage = HeightValueStage.RUNNING
+        )
+
+    }
+    state.heightValueStage == HeightValueStage.RUNNING -> {
+        state = state.copy(
+            heightValue = state.heightValue + number ,
+            heightValueStage =  HeightValueStage.RUNNING
+        )
+    }
+}
     }
     private fun changeWeightOrHeightUnit(sheetItem: String){
         if (state.sheetTitle == "Weight"){
